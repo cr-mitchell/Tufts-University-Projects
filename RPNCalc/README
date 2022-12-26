@@ -1,0 +1,63 @@
+/**********************************************************
+* Project 2: CalcYouLater
+* CS 15
+* README
+* Charles Mitchell
+*********************************************************/
+
+Program Purpose: 
+    Thie purpose of this program was create to create a Reverse Polish 
+    Notation Calculator that takes in various inputs from the user or files
+    or given strings and computes operations on the integers or data
+
+
+Acknowledgements: 
+    I spent a lot of time in office hours discussing methods of taking in
+    file commands with TAs and other students. 
+
+
+Files: 
+
+main.cpp:
+    This is the main function of the program that initializes everything. A 
+    starts the CalcYouLater simulation.
+     
+
+RPNCalc.cpp:
+    Function defintions for the RPNCalc class. All of these functions either
+    print out the top most object on the DatumStack, peform operations on the
+    data, read in commands from files, and runs a command loop for implementing
+    theser operations
+
+RPNCalc.h:
+    This is a class declaration for RPNCalc. Only the constructor and run 
+    functions are public while the all other functions and DatumStack 
+    and variable declarations are private to prevent user messing with 
+    computations in the calculator
+
+DatumStack.cpp:
+    Function definitions for the DatumStack class. There are various 
+    functions that manipulate the stack and creates new stacks.
+
+
+Data Structures:
+    In this program, I implemented a stack from scratch. The stack was of 
+    Datum objects and performed first-in first-out operations. Everytime I 
+    pushed something onto this stack, it would be the first object to leave if
+    removed or the first object to be viewed if printed. 
+
+
+Testing:
+    I mainly only used the unit testing framework to test my DatumStack and
+    and Datum class for the first phase of this assignment. I tested
+    simple actions like making sure a Datum can be added to the top of 
+    the stack and could be popped from the front of the stack and making sure 
+    the Datums were added into the correct variable type. The second week I 
+    tested by continously comparing my output to the mock CalcYouLater provided 
+    to us. This is how I got all of my spacing and errors correct when printing 
+    or attempting to print. When I was done writing all of my code, I used diff 
+    to catch any differences in my output vs the mock metroSim. I also in the 
+    middle of all of my coding used a lot of print statements to debug where 
+    code went wrong. When I was reading in commands from a file, it would not 
+    print the end of the simulation message, but then it took me 45 minutes to 
+    figure out to print at the end of the file.
