@@ -1,0 +1,93 @@
+/**********************************************************
+* Project 1: Metro Simulator
+* CS 15
+* README
+*
+*********************************************************/
+
+Compile/run:
+     - Compile using
+            make MetroSim
+     - run executable with
+            ./MetroSim stationsFile passFile [commands]
+
+
+Program Purpose: 
+     Thie purpose of this program was create a train simulation and does just 
+     that. The code accomplishes using vectors and lists to store data about
+     passengers and passengerqueues. Althought both the Stations and Train
+     use PassengerQueues to store passengers, the train's PassengerQueues can
+     be viewed as different train carts.
+
+
+Acknowledgements: 
+     I spent a lot of time in office hours discussing methods of taking in
+     file commands with TAs and other students. 
+
+
+Files: 
+
+main.cpp:
+     This is the main function of the program that initializes everything. The
+     files are read into main and MetroSim is called here to start the 
+     simulation. The station names are also stored in the vector of Stations in
+     main as well.
+
+MetroSim.cpp:
+     Function defintions for the MetroSim class. All of these functions either
+     print out the current instance of the metro simulation, adds and deletes
+     passangers from the stations and train, runs the simulation until told
+     to quit, and writes to a file where a passenger exits the train
+
+MetroSim.h:
+     This is a class declaration for a MetroSim. A struct of Station is defined
+     and then a vector of the Stations are made in the class definition. A 
+     vector of PassengerQueues is declared as the train and all the functions 
+     that manipulate both vectors are delcared in this class
+
+stations.txt:
+     an example file containing a list of stations.
+
+test_commands.txt:
+     sample list of commands that you could give to the simulator
+
+the_metroSim:
+     reference implementation for students to see how 
+
+
+Note:  the program should handle all cases.
+
+Data Structures:
+     in this program, I used a list (linked list) to organize my passengerqueue
+     which was just queue of passenger structs. This made it easy to add a 
+     passenger to the back and delete the passenger from the front. I also 
+     used a vectore (array list) to organize my stations and train vector.
+     This made it easy to index into each element (passengerqueue or station
+     struct) to get, add, or remove information
+
+
+Testing:
+     I mainly only used the unit testing framework to test my passengerqueue
+     and passenger structs for the first phase of this assignment. I tested
+     simple actions like making sure a passenger can be added to the back of 
+     queue and could be popped from the front of the queue and making sure 
+     the id, arrival station, and departure station could be added to a 
+     passenger struct. The second week I tested by continously comparing my 
+     output to the mock metroSim provided to us. This is how I got all of my 
+     spacing correct when printing out an instance of MetroSim. When I was done
+     writing all of my code, I used diff to catch any differences in my output
+     vs the mock metroSim. I also in the middle of all of my coding used a lot
+     of print statements to debug where code went wrong. Which I was picking up
+     passengers from a station, it would only pick up a few and I used a for 
+     loop for this functionality. I printed out the size where I was comparing
+     to and it was changing everytime because I was deleting from the station
+     at the same time and as comparing so the loop would stop before all the 
+     passenger was added to the train. 
+
+
+Part that you found most difficult:
+     The most difficult part was reading in the files I would say. It was very
+     tricky to pick a part the commands and how to unstick the string when 
+     adding the passenger. After hours in office hours, I finally worked out
+     one way to do it. 
+
