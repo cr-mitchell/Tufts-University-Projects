@@ -1,0 +1,97 @@
+/**********************************************************
+* Project 3: Zap
+* CS 15
+* README
+* Charles Mitchell
+*********************************************************/
+
+
+Program Purpose: 
+    Thie purpose of this program was to take in a regular file with a string 
+    and compresses it by storing its contents in a binary tree based on 
+    frequencies of the characters and then stores the compression results,
+    which is binary, into a file. The program also reverses this process.
+
+
+Compile/run:
+     - Compile using
+            make zap
+     - run executable with
+            ./zap [zap | unzap] inputFile outputFile
+
+
+Acknowledgements: 
+    I spent a lot of time in office hours discussing methods of taking in
+    file commands with TAs and other students. 
+
+
+Files: 
+
+    main.cpp:
+        This is the main function of the program that initializes everything. A 
+        starts HuffmanCoder simulation and reads in arguments from the command 
+        line that are the input file, output file, and string that determines 
+        what to do with the two files.
+        
+    HuffmanCoder.h:
+        This is a class declaration for a HuffmanCoder. The class contains two 
+        public methods that either convert a given file into a compressed file
+        and vise versa. The class also contains 6 private functions that
+        compress or decompress the files contents.
+
+    HuffmanCoder.cpp:
+        Function defintions for the HuffmanCoder class. On running, the user 
+        will wither choose to compress a file and store its contents in another 
+        file or decompress a file and store the conetns in another file. The 
+        two main functions that handle this is encoder and decoder with the 
+        help of their helper functions which are called in them. 
+
+    Makefile:
+        This file is used to write a compiler function for all the files used 
+        to create this program. It first compiles all the files into .o files
+        and then linkes them all together using the "make" command to run the
+        program.
+
+    README:
+        The README file goes through thourough steps on how this assignment
+        was completed and tested included the data structures I used and how
+        to compile and run the program
+
+    HuffmanTreeNode.h:
+        Contains the class declaration of HuffmanTreeNodes and another class
+        to compare frequency values in the nodes. 
+
+    BinaryIO.h:
+        Contains the class declaration of BinaryIO that stores binary text in 
+        a file with minimum number of bytes and also reads in and returns 
+        the binary text into a string
+
+    testmain.cpp: 
+        This is the testmain function of the program that initializes 
+        everything and tests to see if everything is correct. Some of these 
+        test use helper functions I built but then deleted to submit the 
+        assignment.
+
+//talk about pre-order alogrithm as well
+Data Structures:
+    In this program, I implemented a binary tree from scratch and also used
+    the built in map function which is technically also a binary. I built this
+    binary tree using the pre-order method which is visitng the root, then
+    traveling to the left subtrees then the right subtrees. This was done
+    recursively of course. The map was used to store keys and values for 
+    me to access later. I also used a priority queue to determine which 
+    character should go where in a binary tree. This priority queue was also
+    used determine frequencies of inner nodes by adding both of the inner nodes
+    children's frequencies to itself. 
+
+
+Testing:
+    I used a file call testmain.cpp to initalize a instance of HuffmanCoder. 
+    For testing purposes, I made all of the methods in the HuffmanCoder class
+    public to be able access them and test them. I called every function and 
+    checked to so if its outputs were what they were suppose to be. To test
+    the error throwing, I simply ran the entire program and entered things that
+    I knew woudl throw the errors to see if that threw the exact same way the
+    reference through them. For throwing the "Encoding did not match Huffman 
+    tree." error, I created a falty file that I ran through decoder to throw 
+    the error. 
