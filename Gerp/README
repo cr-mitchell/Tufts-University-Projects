@@ -1,0 +1,339 @@
+/**********************************************************
+* Project 4: gerp
+* CS 15
+* README
+* Partners: Charles Mitchell and Rofeeah Ayeni
+*  12/05/2022
+*********************************************************
+
+
+Program Purpose:
+
+Phase One:
+This phase contains the declaration and definition of 2 functions. 
+These functions are:
+- FSTree:
+    This function takes organizes a Directory and its files into a n-ary tree.
+    This helps to navigate the folder and its files so that the path can be
+    used in phase 2.
+
+- String Manipulation:
+    This function takes an input and strips all non alpha numeric characters
+    that are in the front or back of the string. This will later be used in
+    our query and data files.
+
+Overall Purpose:
+
+    Gerp is a search engine(using Hash Tables) that can search through files in
+    a directory for a word inputed by the user through a query. Gerp also has
+    sensitve and insensitive features where you can find the exact indicated
+    word(case sensitive) or non case sensitive word which is all iterations of
+    that word no matter the case.
+
+    When gerp is ran, the program traverses a file tree and indexes each file 
+    in the tree. A query is the activated, where the user puts in a word and it
+    is seached(depending on if it is case sensitive or not) through each of
+    those files. If the word is found, its lines are printed on the output file
+    indicated by the user. If the word is not found, an approprate error is
+    printed to that same file. 
+
+*******************************************************************************
+
+Awknowledgments:
+TAs: 
+Ellis Brown -> Ellis is such a life saver. We could not figure out a 
+segmentation issue in our code for so long because we searched and could not
+find anything wrong with our code. He helped us comb through our code and 
+found and explained the error (it was the compiler) in a manner that I will
+forerver know how to avoid a issue like this in the future.
+
+
+
+*******************************************************************************
+
+Files:
+
+    DirNode.h:
+
+        This provided file is the DirNode class file. It is the building block
+        for the FSTreee class. DiNode is a representation of a folder where
+        each instance is a name, a list of files in the directory, and a list
+        of subdirectories.
+
+    FSTree.h:
+
+        This provided file is the declaration for the FSTree class file. 
+        This is used to build and navigate through folders and and directories.
+
+    stringProcessing.h:
+
+        This file consists of a function declarion stripNonAlphaNum.
+
+    stringProcessing.cpp:
+
+        This file consists of the function defintion for stripNonAlphaNum. 
+        This function takes a word and checks if the inserted string has non
+        alphanumeric characters after the last alphanumeric character and 
+        before the first alphanumeric character and strips them from the 
+        string.
+
+    FSTreeTraversal.h:
+
+        This is a class declaration for a FSTreeTraversal. This class contains 
+        one public and one private method and a declaration of a stuct. The 
+        create tree function takes in the users inputed directory and a 
+        vector of declared struct by reference and creates a tree of the 
+        given directory and calls the private function to populate the vector. 
+
+    FSTreeTraversal.cpp:
+
+         This file contains function defintions for the FSTreeTraversal class. 
+         On running, an instance of FSTree is made with the users inputted 
+         directory. This function populates a vector with the help of a 
+         recursive helper function.
+
+    values.h:
+    
+       This is a class declaration for a Values class. This class contains 
+       two public and one private method and a declaration of a stuct. The 
+       Values constructor initializes the size of our hash table (our vector
+       of list of sruct instances). The open file function takes in an opened 
+       file, string that contains the path of the opened path and a reference 
+       to our vector of list of struct instances.
+        
+
+    values.cpp:
+
+        This file contains function defintions for the Values class. On 
+        running, the size of the hash table (our vector of list of struct 
+        instances) is set. The open file function is then called and reads 
+        in each line and each word from the each line and creates an instance 
+        of declared struct and inserts it into our hash table.
+
+    process.h:
+
+        This file is a class declaration for gerp. This classcontains
+        two public and six private method. The start function takes in the 
+        users input directory and name of the output file of choice and calls
+        our private methods to populate our hash table. The query function 
+        starts the word search and outputfile writing with the help of two 
+        private functions.
+
+    process.cpp:
+        This file has the function defintions for the gerp class. On running, 
+        all file data is read into our hash table and vector of structs with 
+        file paths and names. Then the query function is called to started 
+        search for words and printing its results into a file of choice
+
+    main.cpp:
+        This is the main function of the program that initializes
+        everything. The function takes in the arguments entered on the command
+        line and stores them in strings to determine input directory and 
+        output file and then calls an instance of gerp.
+
+    unit_test.h:
+        A unit testing file for gerp. It mainly tests the functions used to 
+        build gerp. There's testing for the stringNonAlhaNum function.
+
+    Makefile: 
+         Builds our program
+
+        There is a line that is over 80 lines mainly because the backslash is
+        not working. 
+
+
+
+
+    Test Files: 
+    
+    resulted sorted files to be diffed ourSorted.txt refSorted.txt -> from 
+    test2 folder
+
+        banana.txt -> tests insensitive
+        parts.txt -> tested a medium file and sensitive
+        works_of_shakespeare.txt -> tested a very large file, insensitve
+        (ommited from submission because the submisison file was too large)
+
+        banana_apple.txt -> tests duplicates and sensitive
+        hi.txt -> tests duplicates insensitive
+        sentences.txt -> string with non alphanumeric characters
+
+
+*******************************************************************************
+
+Compile/run:
+     - Compile using
+            make gerp
+     - run executable with
+            gerp:
+            ./the_gerp Directory ref_output.txt
+            
+     - to test:
+          unit_test
+
+
+
+*******************************************************************************
+
+Architectural Overview
+
+For the program to start, the user inputs their directory(to be read in) and 
+the output file for their results when in the query to search for words that
+may or may not be in the directory. 
+
+Before the query, each file in the directory is processed and the words in
+each file is stored in our table based on our hash function. For the files to
+be read in, they use FSTreeTraversal. FSTreeTraversal takes in a input 
+directory and builds a tree with all subdirectories and files and recursively 
+populate a vector of structs with the file names and paths to get to that file.
+FSTreeTraversal builds this tree using the FSTree and DirNode frameworks.
+FSTree is used to create a file tree of DIrNodes in which FSTree keeps a 
+pointer to the root DirNode. 
+
+Once we have our tree built, our path and other information for each file 
+in the directory, we use the path to access each file in order to read and
+hash it to its index. As the words in the file are being read in, 
+stringProcessing strips them of leading and trailing non AlphaNumeric 
+characters. All different words(including different cases) are then inputed 
+into the hash function to be hashed into their appropriate index in the vector.
+For the same words with the case, they are chained to the same
+location(linkedlist). For example: 
+Vector at index 0 can contain a linked 
+list with the following values: CAT(line 1) -> CAT(line 3) -> CAT(line 56).
+Vector at index 5 can contain a linked 
+list with the following values: cat(line 6) -> cat(line 5) -> cat(line 7).
+
+
+Once the words are stored in their location in the table, the user is now
+ready to enter the query. Once the user inputs a series of words and quit 
+the program, the results is stored in a output file where it tells if the 
+word was found or not. If the word was found, it prints the file path, the 
+line and sentense where the word was found. This design plans ahead of time 
+in terms of Insensitive and sensitive cases. For sesitive cases, the user can 
+just be hashed to that particular index and print its iterations. For 
+insensitive, it comapres the user's word lowercased word and the 
+stored lowered word in the table. If they are the same, it prints the lines
+and sentense where it was found.
+
+
+*******************************************************************************
+
+Data Structures: In this program, the data structures we opted to use were 
+structs, sets, vectors, lists, and the c++ hash function. Below is a detailed 
+list on where and how we used them.  
+
+    Structs: we opeted to use structs when we decided to store mutiple pieces
+    of information in our vectors. We used structs in our FSTreeTraversal
+    class to store a string containing the name of a file to open and a string
+    containing the path the file is located in. These struct instances were 
+    stored in a vector. We also used structs in our Values class(valueMoments) 
+    to store a string containing the word a user opts to search for, a string 
+    containing the same word but all lower case, and a string containing the 
+    path, line number, and line where the word occured. These instances were 
+    stored in a vector of list. 
+
+        
+
+    Sets: we opted to use sets to insert the string containing the path, line
+    number, and line where a word occured. By using sets, we could assure that
+    if multiple of the same strings were to be inserted into the set, only one
+    would actually go into the set because sets are like arrays but they don't
+    allow duplicates.
+
+    Vectors: As stated in our struct data structure explaination, we opted to
+    use vectors to store stucts instances and list of struct instances. We 
+    used vectors in our FSTreeTraversal class to store struct instances of
+    file and path information. We also used vectors in our Values class to 
+    store a list of our struct instances containing word information. This 
+    vector of list of stuct instances acted as our hash table using the
+    chaining method to prevent collisions. 
+
+    Lists: we opted to use list in our Values class to store struct instances 
+    of word information as a chaining method to prevent collisions. Each list
+    contained an instance of one word and were it occured in everyline in a 
+    file and its lowercase version to be able to be accessed when search
+    insensitively. 
+
+    Hash Function: we opted to used the c++ hash function in our Values class
+    for speedd (O(1)) access to lists of of a word. We used the hash function
+    to insert cases of words and also used the hash function to search for
+    word sensitively. 
+
+
+*******************************************************************************
+
+
+How we tested:
+
+    - Unit test:
+        For week 1, I unit tested my functions to make sure that the functions
+        are doing what they are supposed to do. For example, for the 
+        stringNonAlhaNum function, I tested different input cases and asserted
+        the answer that it should produce.
+        I tested:
+            - A string with leading, trailing and middle non alphanumeric 
+                characters
+            - A string trailing and middle non alphanumeric characters
+            - A string with middle non alphanumeric characters
+            - A string leading non alphanumeric characters
+            - An empty string
+            - A string with all alphanumeric characters
+
+    - Diff test: Sorted and diffed
+        I noticed that the order that our output was a bit different from the 
+        reference. I then decided to use the unix sort command to sort the 
+        contents in both files and the diffed the files.
+    
+        Files: ourSorted.txt refSorted.txt -> from test2 folder
+        test2 folder files and subdirs: 
+            banana.txt -> tests insensitive
+            parts.txt -> tested a medium file and sensitive
+            works_of_shakespeare.txt -> tested a very large file, insensitve
+            
+            testsub folder
+                banana_apple.txt -> tests duplicates and sensitive
+                hi.txt -> tests duplicates insensitive
+
+                    testsubsub folder
+                        sentences.txt -> string with non alphanumeric 
+                        characters
+
+    -FSTreeTraversal: we found that their was no way to diff test or unit test 
+        for FSTreeTraversal so we just used a main function to print out all of
+        the returned values of the vector of structs. With the inputted 
+        directory, we should have seen the printing out of each file in the
+        directory and its file path and we did. We ran into a big issue where
+        it kept seg faulting, but after meeting with Ellis Brown (TA), we
+        discovered all we had to do was make a clean in Makefile because our
+        files were being updated
+
+    -Values: we also found that their was no way to diff test or unit test out
+        Values class, so we used printing and search to make sure that the 
+        hash table was being correctly created. Each vector index contained
+        a list of instances of a specific word regardless of the case. What we
+        did was search for the word when the table was populated and printed
+        out the entire list on small test and medium test directories where
+        we could accurately track how many words that we were searching for
+        were in the file on what files. In this case, we also made sure that
+        duplicate lines were printed out to make sure every word was read in,
+        but when we added the lines to our set, only one of the duplicates 
+        was inserted. 
+
+    -Process: we found that diff test or unit test did not work for our gerp 
+        class, so we used diff files for this. See the diff testing section 
+        for our output testing in different files. However, we did in fact test
+        our query. We tested to make sure after the user choses to close a file
+        a open a new one to post results in that only on query popped up after
+        this command call and not two which was one issue we had. We were 
+        originally calling a function to close up the current file and open
+        a new one, but this was cause the printing out of an extra query. We
+        learned to open and close the file just in the query function and that 
+        would result in one query print. The insensitive and senesitive word
+        search cases were tested using diff testing against the reference
+        program provided to use by the instructors. 
+
+Our main error: Compiler issue
+We had an unfortunate error that lasted us 4 days to fix because of the 
+compiler. We kept on getting a segmentation fault even though we put cerr 
+statements throughout our entire program. With the help of Ellis, we created 
+a clean that got rid of this error.
